@@ -3,28 +3,28 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to the main branch
+      - main  
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Specify the runner environment
+    runs-on: ubuntu-latest 
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2  # Checkout the repository code
+      uses: actions/checkout@v2
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'  # Specify the Node.js version
+        node-version: '14'  
 
     - name: Install dependencies
-      run: npm install  # Install npm dependencies
+      run: npm install  
 
     - name: Build the app
-      run: npm run build  # Run your build command (adjust if necessary)
+      run: npm run build 
 
     - name: Deploy to Firebase
       env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}  # Use your Firebase token
-      run: npm install -g firebase-tools && firebase deploy --only hosting  # Deploy to Firebase
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}  
+      run: npm install -g firebase-tools && firebase deploy --only hosting  
