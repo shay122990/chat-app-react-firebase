@@ -15,7 +15,7 @@ function App() {
 
   return (
     <main>
-      <h1>Real-Time Chat App</h1>
+      <h1>Spill The Tea</h1>
       <Auth />
       {user && <ChatRoom />}
     </main>
