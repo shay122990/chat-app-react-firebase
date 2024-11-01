@@ -35,17 +35,16 @@ const provider = new GoogleAuthProvider();
 // Listener for authentication state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("Authenticated user:", user);
+    // User is signed in. You can perform actions here if needed.
   } else {
-    console.error("User is not authenticated");
+    // User is not authenticated
   }
 });
 
 export const signInWithGoogle = async () => {
   try {
-    const result = await signInWithPopup(auth, provider);
-    console.log("Sign-in successful:", result.user);
-    return result.user;
+    await signInWithPopup(auth, provider);
+    // perform actions here if needed.
   } catch (error) {
     console.error("Error during sign-in", error);
   }
@@ -54,7 +53,7 @@ export const signInWithGoogle = async () => {
 export const logout = async () => {
   try {
     await signOut(auth);
-    console.log("User signed out");
+    // perform actions here if needed.
   } catch (error) {
     console.error("Error during sign-out", error);
   }
@@ -70,7 +69,7 @@ export const sendMessage = async (message) => {
       userId: auth.currentUser.uid,
       userName: auth.currentUser.displayName,
     });
-    console.log("Message sent:", message);
+    // perform actions here if needed.
   } catch (error) {
     console.error("Error sending message:", error);
   }
