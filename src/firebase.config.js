@@ -4,6 +4,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -31,9 +32,19 @@ export const db = getFirestore(app);
 
 const provider = new GoogleAuthProvider();
 
+// Listener for authentication state changes
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("Authenticated user:", user);
+  } else {
+    console.error("User is not authenticated");
+  }
+});
+
 export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
+    console.log("Sign-in successful:", result.user);
     return result.user;
   } catch (error) {
     console.error("Error during sign-in", error);
@@ -43,6 +54,7 @@ export const signInWithGoogle = async () => {
 export const logout = async () => {
   try {
     await signOut(auth);
+    console.log("User signed out");
   } catch (error) {
     console.error("Error during sign-out", error);
   }
@@ -58,6 +70,7 @@ export const sendMessage = async (message) => {
       userId: auth.currentUser.uid,
       userName: auth.currentUser.displayName,
     });
+    console.log("Message sent:", message);
   } catch (error) {
     console.error("Error sending message:", error);
   }
