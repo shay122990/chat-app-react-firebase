@@ -35,7 +35,7 @@ const provider = new GoogleAuthProvider();
 // Listener for authentication state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in. You can perform actions here if needed.
+    // User is signed in. Perform actions here if needed.
   } else {
     // User is not authenticated
   }
@@ -53,7 +53,6 @@ export const signInWithGoogle = async () => {
 export const logout = async () => {
   try {
     await signOut(auth);
-    // perform actions here if needed.
   } catch (error) {
     console.error("Error during sign-out", error);
   }
@@ -69,7 +68,15 @@ export const sendMessage = async (message) => {
       userId: auth.currentUser.uid,
       userName: auth.currentUser.displayName,
     });
-    // perform actions here if needed.
+
+    if (message.toLowerCase().includes("test")) {
+      await addDoc(collection(db, "messages"), {
+        text: "This is a test reply.",
+        createdAt: serverTimestamp(),
+        userId: "system",
+        userName: "ChatBot",
+      });
+    }
   } catch (error) {
     console.error("Error sending message:", error);
   }

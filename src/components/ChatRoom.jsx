@@ -1,19 +1,11 @@
 import { useState, useEffect } from "react";
-import { db, auth } from "../firebase.config";
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-  serverTimestamp,
-} from "firebase/firestore";
+import { db, sendMessage as sendMessageToFirestore } from "../firebase.config";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
-  // Fetching messages in real time
   useEffect(() => {
     const messagesRef = collection(db, "messages");
     const q = query(messagesRef, orderBy("createdAt"));
@@ -27,17 +19,11 @@ const ChatRoom = () => {
     return unsubscribe;
   }, []);
 
-  // Send a new message to Firestore
   const sendMessage = async (e) => {
     e.preventDefault();
     if (newMessage.trim() === "") return;
 
-    await addDoc(collection(db, "messages"), {
-      text: newMessage,
-      createdAt: serverTimestamp(),
-      userId: auth.currentUser.uid,
-      userName: auth.currentUser.displayName,
-    });
+    await sendMessageToFirestore(newMessage);
     setNewMessage("");
   };
 
