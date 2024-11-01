@@ -1,12 +1,12 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Auth from "./components/Auth";
 import ChatRoom from "./components/ChatRoom";
 import { auth } from "./firebase.config";
 
 function App() {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
@@ -14,11 +14,11 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <main>
       <h1>Real-Time Chat App</h1>
       <Auth />
       {user && <ChatRoom />}
-    </div>
+    </main>
   );
 }
 

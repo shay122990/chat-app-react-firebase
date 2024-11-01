@@ -30,6 +30,11 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+main{
+  border: 1px solid lime;
+  padding: 4rem;
+  border-radius: 10px;
+}
 
 h1 {
   font-size: 3.2em;
