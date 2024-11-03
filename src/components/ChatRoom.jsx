@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db, sendMessage as sendMessageToFirestore } from "../firebase.config";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     const messagesRef = collection(db, "messages");
@@ -19,6 +20,10 @@ const ChatRoom = () => {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   const sendMessage = async (e) => {
     e.preventDefault();
     if (newMessage.trim() === "") return;
@@ -29,12 +34,13 @@ const ChatRoom = () => {
 
   return (
     <div>
-      <div>
+      <div className="messages-container">
         {messages.map((message) => (
           <p key={message.id}>
             <strong>{message.userName}:</strong> {message.text}
           </p>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <form onSubmit={sendMessage}>
         <input

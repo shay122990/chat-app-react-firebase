@@ -32,7 +32,8 @@ body {
 }
 main{
   border: 1px solid lime;
-  padding: 4rem;
+  padding: 2rem;
+  width: 100%;
   border-radius: 12px;
 }
 
@@ -62,6 +63,13 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 6px auto -webkit-focus-ring-color;
+}
+.messages-container {
+  max-height: 300px;
+  overflow-y: auto; 
+  padding: 1rem;
+  border: 1px solid #595858; 
+  margin: 2rem 0;
 }
 
 @media (prefers-color-scheme: light) {
