@@ -25,15 +25,12 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
 }
 main{
   border: 1px solid lime;
   padding: 2rem;
-  width: 100%;
   border-radius: 12px;
 }
 
@@ -45,6 +42,8 @@ input{
   height: 36px;
   width: 100%;
   margin-bottom: 1rem;
+  border-radius: 10px;
+  border: none;
 }
 button {
   border-radius: 8px;
@@ -70,6 +69,7 @@ button:focus-visible {
   padding: 1rem;
   border: 1px solid #595858; 
   margin: 2rem 0;
+  border-radius: 10px;
 }
 
 @media (prefers-color-scheme: light) {
